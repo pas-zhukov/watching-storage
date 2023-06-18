@@ -2,19 +2,7 @@ from django.db import models
 from django.utils.timezone import localtime, now
 
 
-class DictView:
-    """
-    Класс для отображения атрибутов в виде словаря, необходим для отладки.
-    """
-    @property
-    def dict(self):
-        dictionary = self.__dict__
-        dictionary.pop("_state")
-        dictionary.pop("id")
-        return dictionary
-
-
-class Passcard(models.Model, DictView):
+class Passcard(models.Model):
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
     passcode = models.CharField(max_length=200, unique=True)
@@ -26,7 +14,7 @@ class Passcard(models.Model, DictView):
         return f'{self.owner_name} (inactive)'
 
 
-class Visit(models.Model, DictView):
+class Visit(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     passcard = models.ForeignKey(Passcard, on_delete=models.CASCADE)
     entered_at = models.DateTimeField()

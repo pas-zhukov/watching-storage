@@ -1,0 +1,8 @@
+venv
+.idea
+__pycache__
+.replit
+poetry.lock
+pyproject.toml
+.env
+main.py

@@ -1,26 +1,23 @@
 import os
+import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv("ENGINE"),
-        'HOST': os.getenv("HOST"),
-        'PORT': os.getenv("PORT"),
-        'NAME': os.getenv("NAME"),
-        'USER': os.getenv("USER"),
-        'PASSWORD': os.getenv("PASSWORD"),
+    'default': dj_database_url.config(
+            default='postgres://...',
+            conn_max_age=600,
+            conn_health_checks=True,)
+
     }
-}
 
 INSTALLED_APPS = ['datacenter']
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "REPLACE_ME")
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG", 'False')
 
 ROOT_URLCONF = 'project.urls'
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '*')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
@@ -30,7 +27,6 @@ TEMPLATES = [
         'APP_DIRS': True,
     },
 ]
-
 
 USE_L10N = True
 
